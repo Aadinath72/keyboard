@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Keyboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f5f5f7;
+            padding: 20px;
+        }
+
+        .text-area {
+            width: 100%;
+            max-width: 800px;
+            height: 150px;
+            margin-bottom: 20px;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #d2d2d7;
+            border-radius: 12px;
+            resize: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: border-color 0.3s;
+        }
+
+        .text-area:focus {
+            outline: none;
+            border-color: #0071e3;
+        }
+
+        .keyboard {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            user-select: none;
+        }
+
+        .keyboard__row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+            gap: 6px;
+        }
+
+        .keyboard__key {
+            height: 50px;
+            min-width: 40px;
+            padding: 0 10px;
+            background-color: #ffffff;
+            border: 1px solid #d2d2d7;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.1s;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
+            color: #1d1d1f;
+            position: relative;
+        }
+
+        .keyboard__key--wide {
+            flex-grow: 1;
+            max-width: 100px;
+        }
+
+        .keyboard__key--extra-wide {
+            flex-grow: 2;
+            max-width: 120px;
+        }
+
+        .keyboard__key--dark {
+            background-color: #f5f5f7;
+        }
+
+        .keyboard__key--action {
+            background-color: #e7e7ed;
+        }
+
+        .keyboard__key:active {
+            transform: scale(0.95);
+            background-color: #0071e3;
+            color: white;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .keyboard__key--highlight {
+            background-color: #0071e3;
+            color: white;
+        }
+
+        .keyboard__key__secondary {
+            position: absolute;
+            top: 3px;
+            right: 5px;
+            font-size: 10px;
+            opacity: 0.6;
+        }
+
+        .keyboard__key[data-key="Space"] {
+            flex-grow: 8;
+            max-width: 350px;
+        }
+
+        .keyboard__info {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #86868b;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .keyboard__key {
+                height: 45px;
+                min-width: 30px;
+                font-size: 14px;
+                padding: 0 8px;
+            }
+            
+            .keyboard {
+                padding: 15px;
+            }
+            
+            .text-area {
+                height: 120px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <textarea class="text-area" placeholder="Type using the virtual keyboard below..."></textarea>
+    
+    <div class="keyboard">
+        <!-- First Row -->
+        <div class="keyboard__row">
+            <div class="keyboard__key" data-key="1"><span>1</span><span class="keyboard__key__secondary">!</span></div>
+            <div class="keyboard__key" data-key="2"><span>2</span><span class="keyboard__key__secondary">@</span></div>
+            <div class="keyboard__key" data-key="3"><span>3</span><span class="keyboard__key__secondary">#</span></div>
+            <div class="keyboard__key" data-key="4"><span>4</span><span class="keyboard__key__secondary">$</span></div>
+            <div class="keyboard__key" data-key="5"><span>5</span><span class="keyboard__key__secondary">%</span></div>
+            <div class="keyboard__key" data-key="6"><span>6</span><span class="keyboard__key__secondary">^</span></div>
+            <div class="keyboard__key" data-key="7"><span>7</span><span class="keyboard__key__secondary">&</span></div>
+            <div class="keyboard__key" data-key="8"><span>8</span><span class="keyboard__key__secondary">*</span></div>
+            <div class="keyboard__key" data-key="9"><span>9</span><span class="keyboard__key__secondary">(</span></div>
+            <div class="keyboard__key" data-key="0"><span>0</span><span class="keyboard__key__secondary">)</span></div>
+            <div class="keyboard__key keyboard__key--dark" data-key="Backspace">⌫</div>
+        </div>
+
+        <!-- Second Row -->
+        <div class="keyboard__row">
+            <div class="keyboard__key" data-key="q">q</div>
+            <div class="keyboard__key" data-key="w">w</div>
+            <div class="keyboard__key" data-key="e">e</div>
+            <div class="keyboard__key" data-key="r">r</div>
+            <div class="keyboard__key" data-key="t">t</div>
+            <div class="keyboard__key" data-key="y">y</div>
+            <div class="keyboard__key" data-key="u">u</div>
+            <div class="keyboard__key" data-key="i">i</div>
+            <div class="keyboard__key" data-key="o">o</div>
+            <div class="keyboard__key" data-key="p">p</div>
+            <div class="keyboard__key keyboard__key--dark" data-key="\">\</div>
+        </div>
+
+        <!-- Third Row -->
+        <div class="keyboard__row">
+            <div class="keyboard__key keyboard__key--action" data-key="Caps">Caps</div>
+            <div class="keyboard__key" data-key="a">a</div>
+            <div class="keyboard__key" data-key="s">s</div>
+            <div class="keyboard__key" data-key="d">d</div>
+            <div class="keyboard__key" data-key="f">f</div>
+            <div class="keyboard__key" data-key="g">g</div>
+            <div class="keyboard__key" data-key="h">h</div>
+            <div class="keyboard__key" data-key="j">j</div>
+            <div class="keyboard__key" data-key="k">k</div>
+            <div class="keyboard__key" data-key="l">l</div>
+            <div class="keyboard__key" data-key=";">;</div>
+            <div class="keyboard__key keyboard__key--dark" data-key="Enter">↵</div>
+        </div>
+
+        <!-- Fourth Row -->
+        <div class="keyboard__row">
+            <div class="keyboard__key keyboard__key--action keyboard__key--wide" data-key="Shift">Shift</div>
+            <div class="keyboard__key" data-key="z">z</div>
+            <div class="keyboard__key" data-key="x">x</div>
+            <div class="keyboard__key" data-key="c">c</div>
+            <div class="keyboard__key" data-key="v">v</div>
+            <div class="keyboard__key" data-key="b">b</div>
+            <div class="keyboard__key" data-key="n">n</div>
+            <div class="keyboard__key" data-key="m">m</div>
+            <div class="keyboard__key" data-key=",">,</div>
+            <div class="keyboard__key" data-key=".">.</div>
+            <div class="keyboard__key" data-key="/">/</div>
+            <div class="keyboard__key keyboard__key--action keyboard__key--wide" data-key="Shift">Shift</div>
+        </div>
+
+        <!-- Fifth Row -->
+        <div class="keyboard__row">
+            <div class="keyboard__key keyboard__key--action keyboard__key--wide" data-key="Ctrl">Ctrl</div>
+            <div class="keyboard__key keyboard__key--action keyboard__key--wide" data-key="Alt">Alt</div>
+            <div class="keyboard__key" data-key="Space">Space</div>
+            <div class="keyboard__key keyboard__key--action keyboard__key--wide" data-key="Alt">Alt</div>
+            <div class="keyboard__key keyboard__key--action keyboard__key--wide" data-key="Ctrl">Ctrl</div>
+        </div>
+    </div>
+
+    <div class="keyboard__info">
+        Click or touch the keys to type - press Shift/Caps for uppercase
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const textarea = document.querySelector('.text-area');
+            const keys = document.querySelectorAll('.keyboard__key');
+            let capsLock = false;
+            let shiftPressed = false;
+
+            // Helper function to insert text at cursor position
+            function insertAtCursor(text) {
+                const startPos = textarea.selectionStart;
+                const endPos = textarea.selectionEnd;
+                const currentText = textarea.value;
+                
+                textarea.value = currentText.substring(0, startPos) + 
+                    text + 
+                    currentText.substring(endPos, currentText.length);
+                
+                // Move cursor to after inserted text
+                textarea.selectionStart = startPos + text.length;
+                textarea.selectionEnd = startPos + text.length;
+                
+                // Focus back on textarea
+                textarea.focus();
+            }
+
+            // Handle key clicks
+            keys.forEach(key => {
+                key.addEventListener('mousedown', function(e) {
+                    e.preventDefault(); // Prevent focus loss
+                    
+                    // Visual feedback
+                    this.classList.add('keyboard__key--highlight');
+                    
+                    const keyValue = this.getAttribute('data-key');
+                    
+                    // Special key handling
+                    switch(keyValue) {
+                        case 'Backspace':
+                            const startPos = textarea.selectionStart;
+                            if (startPos > 0) {
+                                textarea.value = textarea.value.substring(0, startPos - 1) + 
+                                                textarea.value.substring(startPos);
+                                textarea.selectionStart = startPos - 1;
+                                textarea.selectionEnd = startPos - 1;
+                            }
+                            break;
+                            
+                        case 'Caps':
+                            capsLock = !capsLock;
+                            keys.forEach(k => {
+                                const dataKey = k.getAttribute('data-key');
+                                if (dataKey && dataKey.length === 1 && /[a-z]/.test(dataKey)) {
+                                    if (capsLock || shiftPressed) {
+                                        k.textContent = k.textContent.toUpperCase();
+                                    } else {
+                                        k.textContent = k.textContent.toLowerCase();
+                                    }
+                                }
+                            });
+                            break;
+                            
+                        case 'Shift':
+                            shiftPressed = true;
+                            keys.forEach(k => {
+                                const dataKey = k.getAttribute('data-key');
+                                if (dataKey && dataKey.length === 1 && /[a-z]/.test(dataKey)) {
+                                    k.textContent = k.textContent.toUpperCase();
+                                }
+                            });
+                            break;
+                            
+                        case 'Enter':
+                            insertAtCursor('\n');
+                            break;
+                            
+                        case 'Space':
+                            insertAtCursor(' ');
+                            break;
+                            
+                        case 'Ctrl':
+                        case 'Alt':
+                            // These don't do anything in this simple implementation
+                            break;
+                            
+                        default:
+                            let textToInsert = keyValue;
+                            
+                            // Handle secondary characters (via shift/caps)
+                            const mainChar = this.querySelector('span:not(.keyboard__key__secondary)');
+                            if (mainChar) {
+                                if (shiftPressed || capsLock) {
+                                    textToInsert = mainChar.textContent.toUpperCase();
+                                } else {
+                                    textToInsert = mainChar.textContent.toLowerCase();
+                                }
+                            }
+                            
+                            insertAtCursor(textToInsert);
+                    }
+                });
+                
+                key.addEventListener('mouseup', function() {
+                    this.classList.remove('keyboard__key--highlight');
+                    
+                    if (this.getAttribute('data-key') === 'Shift') {
+                        shiftPressed = false;
+                        if (!capsLock) {
+                            keys.forEach(k => {
+                                const dataKey = k.getAttribute('data-key');
+                                if (dataKey && dataKey.length === 1 && /[a-z]/.test(dataKey)) {
+                                    k.textContent = k.textContent.toLowerCase();
+                                }
+                            });
+                        }
+                    }
+                });
+                
+                // Touch support
+                key.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    this.classList.add('keyboard__key--highlight');
+                    this.click();
+                }, {passive: false});
+                
+                key.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    this.classList.remove('keyboard__key--highlight');
+                }, {passive: false});
+            });
+
+            // Handle physical keyboard input
+            textarea.addEventListener('keydown', function(e) {
+                // Highlight corresponding virtual key if it exists
+                keys.forEach(key => {
+                    const keyData = key.getAttribute('data-key');
+                    if (keyData === e.key || 
+                        (e.key === 'Backspace' && keyData === 'Backspace') ||
+                        (e.key === 'CapsLock' && keyData === 'Caps') ||
+                        (e.key === 'Shift' && keyData === 'Shift') ||
+                        (e.key === 'Enter' && keyData === 'Enter') ||
+                        (e.key === ' ' && keyData === 'Space') ||
+                        (e.key === 'Control' && keyData === 'Ctrl') ||
+                        (e.key === 'Alt' && keyData === 'Alt')) {
+                        
+                        key.classList.add('keyboard__key--highlight');
+                    }
+                });
+
+                // Handle shift key for virtual keyboard
+                if (e.key === 'Shift') {
+                    shiftPressed = true;
+                    keys.forEach(k => {
+                        const dataKey = k.getAttribute('data-key');
+                        if (dataKey && dataKey.length === 1 && /[a-z]/.test(dataKey)) {
+                            k.textContent = k.textContent.toUpperCase();
+                        }
+                    });
+                }
+            });
+
+            textarea.addEventListener('keyup', function(e) {
+                // Remove highlight from virtual keys
+                keys.forEach(key => {
+                    const keyData = key.getAttribute('data-key');
+                    if (keyData === e.key || 
+                        (e.key === 'Backspace' && keyData === 'Backspace') ||
+                        (e.key === 'CapsLock' && keyData === 'Caps') ||
+                        (e.key === 'Shift' && keyData === 'Shift') ||
+                        (e.key === 'Enter' && keyData === 'Enter') ||
+                        (e.key === ' ' && keyData === 'Space') ||
+                        (e.key === 'Control' && keyData === 'Ctrl') ||
+                        (e.key === 'Alt' && keyData === 'Alt')) {
+                        
+                        key.classList.remove('keyboard__key--highlight');
+                    }
+                });
+
+                // Handle shift key for virtual keyboard
+                if (e.key === 'Shift') {
+                    shiftPressed = false;
+                    if (!capsLock) {
+                        keys.forEach(k => {
+                            const dataKey = k.getAttribute('data-key');
+                            if (dataKey && dataKey.length === 1 && /[a-z]/.test(dataKey)) {
+                                k.textContent = k.textContent.toLowerCase();
+                            }
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
